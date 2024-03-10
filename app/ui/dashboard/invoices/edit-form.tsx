@@ -10,6 +10,7 @@ import {
 import Link from 'next/link';
 import { Button } from '@/app/ui/button';
 import { updateInvoice } from '@/app/lib/action';
+import { FormEvent, useState } from 'react';
 
 export default function EditInvoiceForm({
   invoice,
@@ -18,10 +19,19 @@ export default function EditInvoiceForm({
   invoice: InvoiceForm;
   customers: CustomerField[];
 }) {
-  const updateInvoiceWithId = updateInvoice.bind(null, invoice.id);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setIsSubmitting(true);
+
+    const formData = new FormData(event.currentTarget);
+    await updateInvoice(invoice.id, formData);
+    setIsSubmitting(false);
+  };
 
   return (
-    <form action={updateInvoiceWithId}>
+    <form onSubmit={handleSubmit}>
       <div className="rounded-md bg-gray-50 p-4 md:p-6">
         {/* Customer Name */}
         <div className="mb-4">
@@ -119,7 +129,9 @@ export default function EditInvoiceForm({
         >
           Cancel
         </Link>
-        <Button type="submit">Edit Invoice</Button>
+        <Button type="submit" disabled={isSubmitting}>
+          {isSubmitting ? 'Updating...' : 'Update'}
+        </Button>
       </div>
     </form>
   );
