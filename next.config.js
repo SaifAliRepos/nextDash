@@ -6,6 +6,10 @@ const nextConfig = {
         source: '/dashboard/:path*',
         destination: '/ui/dashboard/:path*',
       },
+      {
+        source: '/login',
+        destination: '/ui/login',
+      },
     ];
   },
 };
