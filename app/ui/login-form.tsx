@@ -80,7 +80,7 @@ export default function LoginForm() {
       </form>
       <hr />
       <Button
-        className="text-blue my-5 w-full bg-gray-200 hover:bg-gray-500 hover:text-white"
+        className="text-blue my-5 w-full bg-gray-200 shadow-md hover:bg-gray-500 hover:text-white"
         onClick={() => signIn('github')}
       >
         Log in github <LockClosedIcon className="ml-auto h-5 w-5" />

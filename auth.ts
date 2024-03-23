@@ -41,25 +41,18 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       },
     }),
     GitHub({
-      clientId: '752360fb89a78cd275a7' as string,
-      clientSecret: 'ca8804f3c43d3b0a22e17907db036d500b55e128' as string,
+      clientId: process.env.GITHUB_ID,
+      clientSecret: process.env.GITHUB_SECRET,
     }),
   ],
-
+  session: {
+    strategy: 'jwt',
+    maxAge: 60,
+    updateAge: 60,
+  },
+  jwt: {
+    maxAge: 60,
+  },
   // secret: process.env.NEXTAUTH_SECRET,
   // basePath: '/api/auth',
-  // session: {
-  //   strategy: 'jwt',
-  // },
-  // callbacks: {
-  //   jwt: async ({ token, user }) => {
-  //     user && (token.user = user);
-  //     return token;
-  //   },
-  //   session: async ({ session, token }) => {
-  //     //@ts-ignore
-  //     session.user = token.user;
-  //     return session;
-  //   },
-  // },
 });
